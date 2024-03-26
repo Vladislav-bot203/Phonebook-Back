@@ -1,0 +1,35 @@
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "number": "+375447031255",
+    "name": "Vladislav Naftolin"
+}
+
+###
+
+POST http://localhost:3001/api/persons
+
+{
+    "name": null,
+    "number": null 
+}
+
+
+###
+
+POST http://localhost:3001/api/persons
+
+{
+    "name": "Vladislav Naftolin",
+    "number": null 
+}
+
+###
+
+POST http://localhost:3001/api/persons
+
+{
+    "name": null,
+    "number": "+375447031255" 
+}
