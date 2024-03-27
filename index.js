@@ -56,9 +56,7 @@ const GenerateId = () => {
 }
 
 
-app.get('/api/persons', (request, response) => {
-    response.json(persons);
-});
+app.get('/api/persons', (request, response) => response.json(persons));
 
 
 app.get('/info', (rquest, response) => {
