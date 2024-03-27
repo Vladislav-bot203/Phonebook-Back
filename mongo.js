@@ -1,4 +1,3 @@
-//BNHC2R2CoJf7x0G4
 const mongoose = require('mongoose');
 
 if (process.argv.length < 3) {
