@@ -14,7 +14,6 @@ mongoose.set(`strictQuery`, false);
 
 mongoose.connect(url);
 
-
 const numberSchema = new mongoose.Schema({
     name: String,
     number: String,
@@ -23,18 +22,20 @@ const numberSchema = new mongoose.Schema({
 const Number = mongoose.model('Number', numberSchema);
 
 const number = new Number({
-    name: "Vladislav Fullstack",
-    number: "3335522557"
+    name: process.argv[3],
+    number: process.argv[4]
 })
 
+if(number.name && number.number){
 number.save().then(result => {
-    console.log('number saved');
+    console.log(`added ${number.name} number ${number.number} to phonebook`);
     mongoose.connection.close();
 })
-
-// NodeIterator.find({}).then(result => {
-//     result.forEach(element => {
-//         console.log(element)
-//     });
-//     mongoose.connection.close()
-// })
+} else {
+    Number.find({}).then(result => {
+        result.forEach(element => {
+            console.log(element)
+        });
+        mongoose.connection.close()
+    })
+}
