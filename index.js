@@ -29,24 +29,28 @@ app.use(
 
 app.get("/api/persons", (request, response, next) =>
   NumberPh.find({})
-  .then(result => {
-    if(result){
+    .then((result) => {
+      if (result) {
         response.json(result);
-    } else {
+      } else {
         response.status(404).end();
-    }
-  })
-  .catch(error => {
-    next(error);
-  })
+      }
+    })
+    .catch((error) => {
+      next(error);
+    })
 );
 
 app.get("/info", (rquest, response, next) => {
-    NumberPh.find({})
-    .then(persons => {
-        response.send(`<p>Phonebook has info for ${persons.length} people</p><p>${new Date()}</p>`);
+  NumberPh.find({})
+    .then((persons) => {
+      response.send(
+        `<p>Phonebook has info for ${
+          persons.length
+        } people</p><p>${new Date()}</p>`
+      );
     })
-    .catch(error => next(error));
+    .catch((error) => next(error));
 });
 
 app.get("/api/persons/:id", (request, response) => {
@@ -81,21 +85,20 @@ app.post("/api/persons", (request, response, next) => {
     .then((result) => {
       response.json(result);
     })
-    .catch(error => next(error));
+    .catch((error) => next(error));
 });
 
 app.put("/api/persons/:id", (request, response, next) => {
-    const {number, name} = request.body;
+  const { number, name } = request.body;
 
-    NumberPh.findByIdAndUpdate(
-      request.params.id, 
-      {number, name}, 
-      {new: true, runValidators: true, context: 'query'}
-      )
-        .then(result => response.json(result))
-        .catch(error => next(error)
-      )
-})
+  NumberPh.findByIdAndUpdate(
+    request.params.id,
+    { number, name },
+    { new: true, runValidators: true, context: "query" }
+  )
+    .then((result) => response.json(result))
+    .catch((error) => next(error));
+});
 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: "unknown endpoint" });
@@ -109,7 +112,9 @@ const errorHandler = (error, request, response, next) => {
   if (error.name === "CastError") {
     return response.status(400).send({ error: "malformatted id" });
   } else if (error.name === "ValidationError") {
-    return response.status(400).send({error: error.message, name: error.name})
+    return response
+      .status(400)
+      .send({ error: error.message, name: error.name });
   }
   next(error);
 };
